@@ -58,7 +58,7 @@
                 <h1>Odometer</h1>
             </div>
             <div class="col-1 d-flex justify-content-start mt-3">
-                <form action="{{route('newOdometer')}}" method="GET">
+                <form action="{{ route('newOdometer') }}" method="GET">
                     <input type="submit" value="Make New Odometer">
                 </form>
             </div>
@@ -78,6 +78,7 @@
                     <th scope="col">unit</th>
                     <th scope="col">status</th>
                     <th scope="col">in_out</th>
+                    <th scope="col">Action</th>
                 </tr>
             <tbody>
                 @foreach ($listData as $list)
@@ -87,36 +88,37 @@
                         <td>{{ $list->name }}</td>
                         <td>{{ $list->value }}</td>
                         <td>km</td>
+                        <td>{{$list->status}}</td>
+                        <td>
+                            {{-- <form action="{{ route('in_out_change') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="item_id" value="{{ $list->id }}">
+                                <select name="in_out" class="inOutSelect">
+                                    <option value={{ $list->in_out }}>{{ $list->in_out }}</option>
+                                    @php
+                                        if ($list->in_out == 'in') {
+                                            echo '<option value="out">out</option>';
+                                        } else {
+                                            echo '<option value="in">in</option>';
+                                        }
+                                    @endphp
+                                </select>
+                            </form> --}}
+                            {{$list->in_out}}
+                        </td>
                         <td>
                             <form action="{{ route('status_change') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="item_id" value="{{ $list->id }}">
-                                <select name="status" class="statusSelect">
-                                    <option value={{ $list->status }}>{{ $list->status }}</option>
-                                    @php
-                                        if ($list->status == 'ongoing') {
-                                            echo '<option value="completed">completed</option>';
-                                        } else {
-                                            echo '<option value="ongoing">ongoing</option>';
-                                        }
-                                    @endphp
-                                </select>
-                            </form>
-                        </td>
-                        <td><form action="{{ route('in_out_change') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="item_id" value="{{ $list->id }}">
-                            <select name="in_out" class="inOutSelect">
-                                <option value={{ $list->in_out }}>{{ $list->in_out }}</option>
                                 @php
-                                    if ($list->in_out == 'in') {
-                                        echo '<option value="out">out</option>';
+                                    if ($list->status == 'ongoing') {
+                                        echo '<button type="submit" class="btn btn-success">Complete</button>';
                                     } else {
-                                        echo '<option value="in">in</option>';
+                                        echo ' ';
                                     }
                                 @endphp
-                            </select>
-                        </form></td>
+                            </form>
+                        </td>
                 @endforeach
             </tbody>
             </thead>

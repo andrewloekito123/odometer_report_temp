@@ -22,3 +22,4 @@ Route::get('/index', [OdometerController::class,'viewIndex']);
 Route::post('/index/status_change', [OdometerController::class, 'updateStatus'])->name('status_change');
 Route::post('/index/in_out_change', [OdometerController::class, 'updateInOut'])->name('in_out_change');
 Route::get('/newOdometer', [NewOdometerController::class, 'viewPage'])->name('newOdometer');
+Route::post('/newOdometer/newOdometer', [NewOdometerController::class, 'newOdometer'])->name('InsertNewOdometer');
